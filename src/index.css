@@ -1,2 +1,24 @@
 @import "tailwindcss";
 @plugin "daisyui";
+
+@plugin "daisyui/theme" {
+  name: "light";
+  default: true;
+  --color-primary: #1A55D4;
+  /* --color-primary: #1C352D;
+  --color-secondary: #61839B; */
+  --color-secondary: #CC4A1B;
+  --color-base-200: #F3F3F3;
+  --color-base-300: #E7E7E7;
+  --color-accent: #706F6F;
+  }
+
+/* #FFA232 → Bright Orange ✅
+#CC4A1B → Deep Orange / Reddish ✅
+#F37716 → Muted Red/Orange ✅
+#76C544 → Light Green ✅
+#5A7A21 → Medium Green ⚠️
+#3A7A21 → Dark Green ✅
+#3EC0FF → Light Blue / Cyan ✅
+#288BCD → Mid Blue ✅
+#1A55D4 → Deep Blue ✅ */

@@ -13,6 +13,7 @@ import MenuItem from './Menu/MenuItem'
 import AdminMenu from './Menu/AdminMenu'
 import ManagerMenu from './Menu/ManagerMenu'
 import BorrowerMenu from './Menu/BorrowerMenu'
+import Logo from '../../Shared/Logo'
 
 const Sidebar = () => {
   const { logOut } = useAuth()
@@ -55,7 +56,7 @@ const Sidebar = () => {
             {/* Logo */}
             <div className='w-full hidden md:flex px-4 py-2 shadow-lg rounded-lg justify-center items-center bg-lime-100 mx-auto'>
               <Link to='/'>
-                <img src={''} alt='logo' width='100' height='100' />
+                <Logo/>
               </Link>
             </div>
           </div>
