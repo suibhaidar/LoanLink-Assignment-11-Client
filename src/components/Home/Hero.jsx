@@ -31,7 +31,7 @@ const Hero = () => {
     ];
 
     return (
-        <section className="relative bg-white overflow-hidden">
+        <section className="relative bg-base-100 overflow-hidden">
 
 
             <div className="absolute top-[-120px] right-[-120px] w-[300px] h-[300px] bg-green-200 rounded-full"></div>
@@ -47,8 +47,6 @@ const Hero = () => {
                 {slides.map((slide, index) => (
                     <SwiperSlide key={index}>
                         <div className="container mx-auto px-6 min-h-[85vh] grid md:grid-cols-2 gap-16 items-center">
-
-                            {/* IMAGE */}
                             <motion.div
                                 initial={{ opacity: 0, x: -50 }}
                                 animate={{ opacity: 1, x: 0 }}
@@ -61,15 +59,11 @@ const Hero = () => {
                                     className="max-w-lg w-full"
                                 />
                             </motion.div>
-
-                            {/* CONTENT */}
                             <motion.div
                                 initial={{ opacity: 0, x: 50 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ duration: 0.9 }}
                             >
-
-
                                 <h1 className="mt-3 text-4xl md:text-5xl font-extrabold text-green-800 leading-tight">
                                     {slide.title}
                                 </h1>
@@ -86,7 +80,6 @@ const Hero = () => {
                                 </button>
                                 <button onClick={() => navigate("/apply-loan")} className="mt-8 px-7 py-3 bg-secondary text-white font-semibold rounded-md shadow hover:bg-green-700 transition ml-1" > Explore Loans </button>
                             </motion.div>
-
                         </div>
                     </SwiperSlide>
                 ))}

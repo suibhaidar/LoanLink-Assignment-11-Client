@@ -7,7 +7,7 @@ const Logo = () => {
             <img
                 src={logoImage}
                 alt="FinEase Logo"
-                className="w-12 h-14 rounded-full"
+                className="w-18 h-14 rounded-full"
             />
             <span className="text-2xl font-bold text-primary">
                 <span className="text-secondary">Loan</span>Link
