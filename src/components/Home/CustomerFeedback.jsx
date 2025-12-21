@@ -58,7 +58,7 @@ const feedbacks = [
 
 const CustomerFeedback = () => {
     return (
-        <section className="pt-10 pb-3 bg-base-100">
+        <section className="pt-10 pb-3 bg-base-300">
             <div className="">
                 <div className="text-center mb-2.5">
                     <h2 className="text-3xl font-bold  mb-2">User <span className='text-primary'>Testimonials</span></h2>
@@ -84,7 +84,7 @@ const CustomerFeedback = () => {
                 >
                     {feedbacks.map((item) => (
                         <SwiperSlide key={item.id}>
-                           <div className="card bg-base-200 shadow-md border border-base-300 hover:border-primary transition-all duration-300 min-h-[220px] h-full flex flex-col">
+                           <div className="card bg-base-100 shadow-md border border-base-300 hover:border-primary transition-all duration-300 min-h-[220px] h-full flex flex-col">
                                 <div className="card-body p-5 flex flex-col justify-between">
                                     <p className="text-sm text-accent italic leading-snug mb-4 text-center">
                                         "{item.comment}"

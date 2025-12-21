@@ -32,7 +32,7 @@ const Navbar = () => {
           <ul className="menu menu-horizontal gap-2 hidden lg:flex">
 
             <li><NavLink to="/">Home</NavLink></li>
-            <li><NavLink to="/all-loans">All-Loans</NavLink></li>
+            <li><NavLink to="/all-loan">All-Loans</NavLink></li>
 
             {!user && (
               <>
@@ -81,7 +81,7 @@ const Navbar = () => {
             <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-100 p-3 shadow w-56 z-50">
 
               <li><NavLink to="/">Home</NavLink></li>
-              <li><NavLink to="/all-loans">All-Loans</NavLink></li>
+              <li><NavLink to="/all-loan">All-Loans</NavLink></li>
 
               {!user ? (
                 <>

@@ -4,7 +4,6 @@ import Login from '../pages/Login/Login'
 import SignUp from '../pages/SignUp/SignUp'
 import LoanDetails from '../pages/LoanDetails/LoanDetails'
 import DashboardLayout from '../layouts/DashboardLayout'
-import AddLoan from '../pages/Dashboard/Manager/AddLoan'
 import ManageUsers from '../pages/Dashboard/Admin/ManageUsers'
 import DHome from '../pages/Dashboard/DHome'
 import MainLayout from '../layouts/MainLayout'
@@ -18,6 +17,7 @@ import PendingApplications from '../pages/Dashboard/Manager/PendingApplications'
 import ApprovedApplications from '../pages/Dashboard/Manager/ApprovedApplications'
 import AllLoans from '../pages/Dashboard/Admin/AllLoans'
 import LoanApplications from '../pages/Dashboard/Admin/LoanApplications'
+import AllLoan from '../pages/Home/AllLoan'
 
 
 export const router = createBrowserRouter([
@@ -34,6 +34,10 @@ export const router = createBrowserRouter([
         path: '/loan/:id',
         element: <LoanDetails />,
       },
+      {
+        path: '/all-loan',
+        element: <AllLoan/>
+      }
     ],
   },
   { path: '/login', element: <Login /> },
@@ -63,7 +67,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: 'all-loan',
+        path: '/dashboard/all-loan',
         element: (
           <PrivateRoute>
             <AllLoans/>

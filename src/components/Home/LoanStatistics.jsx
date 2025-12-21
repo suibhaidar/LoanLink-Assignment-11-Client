@@ -8,7 +8,7 @@ const stats = [
         title: "Total Loans Disbursed",
         value: 125000,
         suffix: "+",
-        icon: <TrendingUp className="w-10 h-10 text-base-100 drop-shadow-md transition-transform duration-300 group-hover:scale-110" />,
+        icon: <TrendingUp className="w-10 h-10 text-base-100 drop-shadow-md transition-transform duration-300" />,
     },
     {
         id: 2,
@@ -98,7 +98,6 @@ const LoanStatistics = () => {
                                 />
                                 {stat.suffix}
                             </h3>
-
                             <p className="mt-2 text-white/80 text-sm tracking-wide">
                                 {stat.title}
                             </p>

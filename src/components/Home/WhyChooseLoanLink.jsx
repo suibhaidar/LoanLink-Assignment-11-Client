@@ -65,7 +65,7 @@ const item = {
 
 const WhyChooseLoanLink = () => {
   return (
-    <section className="py-10 mt-4 bg-base-100">
+    <section className="py-10 mt-4 bg-base-300">
       <div className="">
 
         {/* Title & Description (OUTSIDE background image) */}
