@@ -1,9 +1,10 @@
-import { Link, Navigate, useLocation, useNavigate } from 'react-router'
+import { Link, Navigate, replace, useLocation, useNavigate } from 'react-router'
 import toast from 'react-hot-toast'
 import LoadingSpinner from '../../components/Shared/LoadingSpinner'
 import useAuth from '../../hooks/useAuth'
 import { FcGoogle } from 'react-icons/fc'
 import { TbFidgetSpinner } from 'react-icons/tb'
+import { useForm } from "react-hook-form"
 
 const Login = () => {
   const { signIn, signInWithGoogle, loading, user, setLoading } = useAuth()
@@ -12,16 +13,17 @@ const Login = () => {
 
   const from = location.state || '/'
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
   if (loading) return <LoadingSpinner />
   if (user) return <Navigate to={from} replace={true} />
 
-  // form submit handler
-  const handleSubmit = async event => {
-    event.preventDefault()
-    const form = event.target
-    const email = form.email.value
-    const password = form.password.value
-
+  const onSubmit = async (data) => {
+    const {email,password} = data;
     try {
       //User Login
       await signIn(email, password)
@@ -31,8 +33,11 @@ const Login = () => {
     } catch (err) {
       console.log(err)
       toast.error(err?.message)
+      setLoading(false)
     }
-  }
+   }
+
+  
 
   // Handle Google Signin
   const handleGoogleSignIn = async () => {
@@ -48,16 +53,16 @@ const Login = () => {
     }
   }
   return (
-    <div className='flex justify-center items-center min-h-screen bg-white'>
-      <div className='flex flex-col max-w-md p-6 rounded-md sm:p-10 bg-gray-100 text-gray-900'>
+    <div className='flex justify-center items-center min-h-screen bg-base-300'>
+      <div className='flex flex-col max-w-md p-6 my-2.5 rounded-md sm:p-10 bg-base-100'>
         <div className='mb-8 text-center'>
           <h1 className='my-3 text-4xl font-bold'>Log In</h1>
-          <p className='text-sm text-gray-400'>
+          <p className='text-sm text-accent'>
             Sign in to access your account
           </p>
         </div>
         <form
-          onSubmit={handleSubmit}
+          onSubmit={handleSubmit(onSubmit)}
           noValidate=''
           action=''
           className='space-y-6 ng-untouched ng-pristine ng-valid'
@@ -73,9 +78,11 @@ const Login = () => {
                 id='email'
                 required
                 placeholder='Enter Your Email Here'
-                className='w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-lime-500 bg-gray-200 text-gray-900'
+                className='w-full px-3 py-2 border rounded-md border-green-300 focus:outline-green-500 bg-base-200 text-gray-900'
                 data-temp-mail-org='0'
+                {...register('email',{required:'email is required'})}
               />
+              {errors.email && (<p className='text-red-500 text-xs mt-1'>{errors.email.message}</p>)}
             </div>
             <div>
               <div className='flex justify-between'>
@@ -90,15 +97,20 @@ const Login = () => {
                 id='password'
                 required
                 placeholder='*******'
-                className='w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-lime-500 bg-gray-200 text-gray-900'
+                className='w-full px-3 py-2 border rounded-md border-green-300 focus:outline-green-700 bg-gray-200 text-gray-900'
+                {...register('password',{required:'password is required',minLength:{
+                  value:6,
+                  message:'please 6'
+                }})}
               />
+              {errors.password && (<p className='text-red-500 text-xs mt-1'>{errors.password.message}</p>)}
             </div>
           </div>
 
           <div>
             <button
               type='submit'
-              className='bg-lime-500 w-full rounded-md py-3 text-white'
+              className='bg-primary w-full rounded-md py-3 text-base-100'
             >
               {loading ? (
                 <TbFidgetSpinner className='animate-spin m-auto' />
@@ -109,7 +121,7 @@ const Login = () => {
           </div>
         </form>
         <div className='space-y-1'>
-          <button className='text-xs hover:underline hover:text-lime-500 text-gray-400 cursor-pointer'>
+          <button className='text-xs hover:underline hover:text-secondary text-accent cursor-pointer'>
             Forgot password?
           </button>
         </div>
@@ -128,12 +140,12 @@ const Login = () => {
 
           <p>Continue with Google</p>
         </div>
-        <p className='px-6 text-sm text-center text-gray-400'>
+        <p className='px-6 text-sm text-center text-accent'>
           Don&apos;t have an account yet?{' '}
           <Link
             state={from}
             to='/signup'
-            className='hover:underline hover:text-lime-500 text-gray-600'
+            className='hover:underline hover:text-secondary text-gray-600'
           >
             Sign up
           </Link>
