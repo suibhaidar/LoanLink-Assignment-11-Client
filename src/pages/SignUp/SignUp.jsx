@@ -4,7 +4,8 @@ import useAuth from '../../hooks/useAuth'
 import { toast } from 'react-hot-toast'
 import { TbFidgetSpinner } from 'react-icons/tb'
 import { useForm } from 'react-hook-form'
-import { imageUpload } from '../../utils'
+import { imageUpload, saveOrUpdateUser } from '../../utils'
+
 
 const SignUp = () => {
   const { createUser, updateUserProfile, signInWithGoogle, loading } = useAuth()
@@ -26,17 +27,19 @@ const SignUp = () => {
     console.log(data)
 
     
+        
 
     try {
       const photoURL = await imageUpload(imageFile)
-      await createUser(email, password)
+      const result = await createUser(email, password)
+      await saveOrUpdateUser({name,email,image:photoURL})
       await updateUserProfile(name, photoURL)
-
+      
 
       console.log('User Role:', role)
-
-      toast.success('Registration Successful')
       navigate(from, { replace: true })
+      toast.success('Registration Successful')
+      
     } catch (err) {
       console.log(err)
       toast.error(err.message)
@@ -46,11 +49,18 @@ const SignUp = () => {
 
   const handleGoogleSignIn = async () => {
     try {
-      await signInWithGoogle()
-      toast.success('Login Successful')
+      const {user} = await signInWithGoogle()
+      await saveOrUpdateUser({
+        name: user?.displayName,
+        email: user?.email,
+        image: user?.photoURL,
+        role: 'borrower'
+      })
+      
       navigate(from, { replace: true })
+      toast.success('Login Successful')
     } catch (err) {
-      toast.error(err.message)
+      toast.error(err?.message)
     }
   }
 

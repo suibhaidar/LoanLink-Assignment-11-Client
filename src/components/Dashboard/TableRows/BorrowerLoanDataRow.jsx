@@ -1,16 +1,17 @@
 import { useState } from 'react'
 import DeleteModal from '../../Modal/DeleteModal'
-const BorrowerLoanDataRow = () => {
+const BorrowerLoanDataRow = ({application}) => {
   let [isOpen, setIsOpen] = useState(false)
   const closeModal = () => setIsOpen(false)
-
+  console.log(application)
+  const {loanId,loanAmount,status}= application
   return (
     <tr>
       <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
         <div className='flex items-center'>
           <div className='shrink-0'>
             <div className='block relative'>
-              <span>12k1k</span>
+              <span>{loanId}</span>
             </div>
           </div>
         </div>
@@ -18,12 +19,13 @@ const BorrowerLoanDataRow = () => {
 
       <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
         <p className='text-gray-900'>ki hobe</p>
+        <p className='text-gray-500'>ki hobe</p>
       </td>
       <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-        <p className='text-gray-900'>50,000</p>
+        <p className='text-gray-900'>{loanAmount}</p>
       </td>
       <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-        <p className='text-gray-900'>Pending</p>
+        <p className='text-gray-900'>{status}</p>
       </td>
       <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
         {/* <p className='text-gray-900'>5</p> */}

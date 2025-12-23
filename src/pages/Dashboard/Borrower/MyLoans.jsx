@@ -1,6 +1,23 @@
-import CustomerOrderDataRow from '../../../components/Dashboard/TableRows/BorrowerLoanDataRow'
+import { useQuery } from '@tanstack/react-query';
+import BorrowerLoanDataRow from '../../../components/Dashboard/TableRows/BorrowerLoanDataRow'
+import useAuth from '../../../hooks/useAuth';
+import axios from 'axios';
+import LoadingSpinner from '../../../components/Shared/LoadingSpinner';
 
 const MyLoans = () => {
+
+  const { user } = useAuth();
+
+  const { data: applications = {}, isLoading } = useQuery({
+    queryKey: ['application', user.email],
+    queryFn: async () => {
+      const result = await axios(`${import.meta.env.VITE_API_URL}/loan-applications/${user.email}`)
+      return result.data
+    },
+  })
+  if (isLoading) return <LoadingSpinner />;
+  console.log(applications)
+  console.log(user)
   return (
     <>
       <div className='container mx-auto px-4 sm:px-8'>
@@ -44,7 +61,9 @@ const MyLoans = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  <CustomerOrderDataRow />
+                  {
+                    applications.map(application =>(<BorrowerLoanDataRow key={application._id} application={application} />))
+                  }
                 </tbody>
               </table>
             </div>

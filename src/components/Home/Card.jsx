@@ -11,7 +11,7 @@ const Card = ({ loan }) => {
     interest_rate,
     image,
   } = loan || {};
- console.log(loan)
+  console.log(loan)
   return (
     <div className="bg-base-100 rounded-2xl shadow-md hover:shadow-xl transition overflow-hidden">
       <img
@@ -19,35 +19,34 @@ const Card = ({ loan }) => {
         alt={loan_title}
         className="w-full h-48 object-cover"
       />
-
-      <div className="p-5 space-y-3">
+      <div className="p-3 space-y-1">
         <h3 className="text-xl text-primary font-semibold">
           {loan_title}
         </h3>
-        <p className="text-sm text-accent line-clamp-2">
+        <p className="text-sm text-accent line-clamp-1">
           {description}
         </p>
+        <hr className='my-2' />
         <p className="text-sm text-accent">
           Category: <span className="font-medium text-secondary">{category}</span>
         </p>
-        <div className="flex justify-between text-sm">
-          <p className="text-accent">
-            Interest:{" "}
-            <span className="font-semibold text-secondary">
-              {interest_rate}
-            </span>
-          </p>
-          <p className="text-accent mr-1">
-            Max:{" "}
-            <span className="font-semibold text-secondary">
-              {max_loan_limit}<TbCurrencyTaka className="text-[18px] inline-block" />
-            </span>
-          </p>
-        </div>
+        <p className="text-accent">
+          Interest:{" "}
+          <span className="font-semibold text-secondary">
+            {interest_rate}
+          </span>
+        </p>
+        <p className="text-accent">
+          Max:{" "}
+          <span className="font-semibold text-secondary">
+            {max_loan_limit}<TbCurrencyTaka className="text-[18px] inline-block" />
+          </span>
+        </p>
+
 
         {/* View Details Button */}
-        <Link to={`/loans/${_id}`}>
-          <button className="w-full mt-4 py-2 rounded-xl bg-green-600 text-white font-medium hover:bg-green-700 transition">
+        <Link to={`/loan/${_id}`}>
+          <button className="w-full mt-1 py-2 bg-primary text-white font-medium hover:bg-green-700 transition">
             View Details
           </button>
         </Link>

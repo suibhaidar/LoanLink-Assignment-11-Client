@@ -1,55 +1,70 @@
-import { Link, Navigate, replace, useLocation, useNavigate } from 'react-router'
+import { Link, Navigate, useLocation, useNavigate } from 'react-router'
 import toast from 'react-hot-toast'
 import LoadingSpinner from '../../components/Shared/LoadingSpinner'
 import useAuth from '../../hooks/useAuth'
 import { FcGoogle } from 'react-icons/fc'
 import { TbFidgetSpinner } from 'react-icons/tb'
-import { useForm } from "react-hook-form"
+
+import { saveOrUpdateUser } from '../../utils'
+import { useForm } from 'react-hook-form'
 
 const Login = () => {
   const { signIn, signInWithGoogle, loading, user, setLoading } = useAuth()
   const navigate = useNavigate()
   const location = useLocation()
-
   const from = location.state || '/'
 
+  // Register form methods
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  if (loading) return <LoadingSpinner />
+  // Redirect if user already exists
   if (user) return <Navigate to={from} replace={true} />
+  if (loading) return <LoadingSpinner />
 
   const onSubmit = async (data) => {
-    const {email,password} = data;
+    const { email, password } = data;
     try {
-      //User Login
-      await signIn(email, password)
+      setLoading(true); // Manually set loading to true
+      const result = await signIn(email, password);
+      
+      await saveOrUpdateUser({
+        name: result?.user?.displayName,
+        email: result?.user?.email,
+        image: result?.user?.photoURL,
+      });
 
-      navigate(from, { replace: true })
-      toast.success('Login Successful')
+      toast.success('Login Successful');
+      navigate(from, { replace: true });
     } catch (err) {
-      console.log(err)
-      toast.error(err?.message)
-      setLoading(false)
+      console.log(err);
+      toast.error(err?.message);
+    } finally {
+      setLoading(false); // Make sure to stop loading
     }
-   }
+  }
 
-  
-
-  // Handle Google Signin
   const handleGoogleSignIn = async () => {
     try {
-      //User Registration using google
-      await signInWithGoogle()
-      navigate(from, { replace: true })
-      toast.success('Login Successful')
+      setLoading(true);
+      const result = await signInWithGoogle();
+      await saveOrUpdateUser({
+        name: result?.user?.displayName,
+        email: result?.user?.email,
+        image: result?.user?.photoURL,
+        role: 'borrower'
+      });
+
+      toast.success('Login Successful');
+      navigate(from, { replace: true });
     } catch (err) {
-      console.log(err)
-      setLoading(false)
-      toast.error(err?.message)
+      console.log(err);
+      toast.error(err?.message);
+    } finally {
+      setLoading(false);
     }
   }
   return (

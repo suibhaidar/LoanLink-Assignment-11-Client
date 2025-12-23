@@ -18,6 +18,7 @@ import ApprovedApplications from '../pages/Dashboard/Manager/ApprovedApplication
 import AllLoans from '../pages/Dashboard/Admin/AllLoans'
 import LoanApplications from '../pages/Dashboard/Admin/LoanApplications'
 import AllLoan from '../pages/Home/AllLoan'
+import LoanApplicationForm from '../components/Form/LoanApplicationForm'
 
 
 export const router = createBrowserRouter([
@@ -36,8 +37,16 @@ export const router = createBrowserRouter([
       },
       {
         path: '/all-loan',
-        element: <AllLoan/>
+        element: <AllLoan />
+      },
+      {
+        path: '/application-form/:id',
+        element: (
+        <PrivateRoute>
+          <LoanApplicationForm />
+        </PrivateRoute>)
       }
+
     ],
   },
   { path: '/login', element: <Login /> },
@@ -67,10 +76,10 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: '/dashboard/all-loan',
+        path: 'admin-all-loan',
         element: (
           <PrivateRoute>
-            <AllLoans/>
+            <AllLoans />
           </PrivateRoute>
         ),
       },
@@ -78,7 +87,7 @@ export const router = createBrowserRouter([
         path: 'loan-applications',
         element: (
           <PrivateRoute>
-            <LoanApplications/>
+            <LoanApplications />
           </PrivateRoute>
         ),
       },
@@ -86,7 +95,7 @@ export const router = createBrowserRouter([
         path: 'manage-loans',
         element: (
           <PrivateRoute>
-          <ManageLoans/>
+            <ManageLoans />
           </PrivateRoute>
         ),
       },
@@ -94,7 +103,7 @@ export const router = createBrowserRouter([
         path: 'approved-loans',
         element: (
           <PrivateRoute>
-          <ApprovedApplications/>
+            <ApprovedApplications />
           </PrivateRoute>
         ),
       },
@@ -102,7 +111,7 @@ export const router = createBrowserRouter([
         path: 'pending-loans',
         element: (
           <PrivateRoute>
-          <PendingApplications/>
+            <PendingApplications />
           </PrivateRoute>
         ),
       },
@@ -110,7 +119,7 @@ export const router = createBrowserRouter([
         path: 'profile',
         element: (
           <PrivateRoute>
-            <MyProfile/>
+            <MyProfile />
           </PrivateRoute>
         ),
       },
@@ -118,14 +127,15 @@ export const router = createBrowserRouter([
         path: 'my-loans',
         element: (
           <PrivateRoute>
-            <MyLoans/>
+            <MyLoans />
           </PrivateRoute>
         ),
       },
       {
         path: 'add-loan',
-        element: <AddLoans/>
+        element: <AddLoans />
       },
+      
     ],
   },
 ])
